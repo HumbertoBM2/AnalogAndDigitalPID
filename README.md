@@ -1,6 +1,6 @@
 <div align="center">
 
-# Proyecto Final de Sistemas de Control MR2002B (Equipo 1): PID Digital con Arduino y MATLAB
+# Analog and Digital PID
 
 
 ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
