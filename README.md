@@ -1,6 +1,6 @@
 <div align="center">
 
-# Analog and Digital PID
+# Analog and Digital PID Controllers for DC Motor Control
 
 
 ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
@@ -10,42 +10,91 @@
 
 
 
+This repository contains the implementation of **Analog** and **Digital** PID controllers designed for controlling the position of a DC motor as part of a **Control Systems** class. The analog implementation uses operational amplifiers, potentiometers, resistors, and capacitors, while the digital implementation utilizes an **Arduino UNO** with feedback from a magnetic encoder.
 
-Este repositorio contiene los archivos del proyecto final de la materia de **Sistemas de Control**. El objetivo principal es implementar un controlador PID discretizado para controlar un motor DC en lazo cerrado utilizando un **Arduino UNO** y un encoder magnético para retroalimentación. En este proyecto, se recopilan datos del sistema físico y, posteriormente, se utilizan herramientas de **MATLAB** para identificar la planta y ajustar las ganancias del controlador.
+## Table of Contents
+1. [Analog PID Controller](#analog-pid-controller)
+   - [Materials](#materials)
+   - [Circuit Description](#circuit-description)
+   - [Tuning Process](#tuning-process)
+2. [Digital PID Controller](#digital-pid-controller)
+   - [Repository Content](#repository-content)
+   - [Project Description](#project-description)
+   - [Requirements](#requirements)
+   - [Usage Instructions](#usage-instructions)
 
-## Contenido del Repositorio
+---
 
-### 1. **Códigos de Arduino**
-En la carpeta `Arduino` encontrarás los siguientes archivos:
-- `PRBS_Generator.ino`: Código para generar una señal **PRBS** (Pseudo Random Binary Sequence) en el Arduino UNO, utilizada para recopilar datos del sistema.
-- `PID_Controller.ino`: Código del controlador **PID discretizado** con las ganancias ajustadas, utilizado para controlar el motor DC.
+## Analog PID Controller
 
-### 2. **Archivos de MATLAB**
-En la carpeta `MATLAB` se incluyen los scripts y archivos necesarios para la identificación de la planta y ajuste de las ganancias PID:
-- `data_processing.m`: Script que procesa los datos recopilados por el Arduino y los guarda en un archivo CSV.
-- `system_identification.m`: Script que utiliza los datos experimentales para generar una **función de transferencia** mediante la herramienta de identificación de sistemas de MATLAB.
-- `pid_tuner.m`: Script que utiliza el **PID Tuner** de MATLAB para obtener los valores óptimos de las ganancias $K_p$, $K_i$, y $K_d$.
+### Materials
+The analog PID controller circuit uses the following components:
+- **Power Supply**: 3.3V and 12V sources to power operational amplifiers and the DC motor.
+- **Operational Amplifiers (OpAmps)**: For implementing proportional, integral, and derivative blocks.
+- **DC Motor**: The actuator controlled by the PID.
+- **Magnetic Encoder**: Provides feedback for closed-loop control.
+- **Potentiometers**:
+  - **RV1, RV2, RV3**: 100kΩ potentiometers for adjusting proportional, integral, and derivative gains.
+  - **RV4**: 10kΩ potentiometer for setting the reference signal.
+- **Resistors**:
+  - 10kΩ (R1–R5, R8–R12) for defining circuit constants and OpAmp gains.
+  - 1kΩ (R6) for feedback.
+  - 100kΩ (R7) for the integrative stage.
+  - 100Ω (R13, R14) for limiting current in power transistors.
+- **Capacitors**:
+  - 470nF (C1, C2) for integral and derivative stages.
+  - 10nF (C3) for motor signal filtering.
+- **Transistors**:
+  - **TIP122** (Q1): Amplifies the control signal to drive the motor.
+  - **TIP127** (Q2): Complementary transistor for the same purpose.
+- **Oscilloscope**: For visualizing and tuning system response.
+- **Protoboard and Jumpers**: For circuit assembly and testing.
 
-## Descripción del Proyecto
+### Circuit Description
+The analog PID controller is implemented using OpAmp circuits:
+- **Proportional**: Adjusted using RV1.
+- **Integral**: Configured with R7 and C1.
+- **Derivative**: Configured with R7 and C2.
+Feedback from the magnetic encoder provides the position signal, which is compared to the reference set by RV4 to compute the error. The output signal drives the motor through the power transistors.
 
-### 1. **Implementación del PID**
-Este proyecto surge como una continuación de experimentos previos realizados en la clase, donde se utilizó un controlador **PID analógico**. En esta ocasión, el enfoque fue implementar un PID digital para un mayor control y flexibilidad. El controlador recibe como entrada la retroalimentación del encoder magnético y ajusta la salida para controlar la posición del motor DC.
+### Tuning Process
+The controller gains (proportional, integral, and derivative) were tuned manually using the potentiometers while observing the response on an oscilloscope. Adjustments were made to achieve the desired performance criteria, such as settling time and overshoot.
 
-### 2. **Identificación de la Planta**
-Para obtener una representación precisa del sistema, se generó una señal PRBS para excitar la planta y registrar su respuesta. Estos datos se procesaron en **MATLAB**, y utilizando la herramienta de identificación de sistemas, se obtuvo una función de transferencia de segundo orden con una fiabilidad del 99.35\%.
+---
 
-### 3. **Ajuste del PID**
-Con la función de transferencia identificada, se ajustaron las ganancias del controlador en **MATLAB** mediante el **PID Tuner**. Las ganancias finales $K_p$, $K_i$, y $K_d$ se implementaron en el código del Arduino para controlar el sistema en tiempo real.
+## Digital PID Controller
 
-## Requisitos
+### Repository Content
 
-- **Arduino UNO** o cualquier otro microcontrolador compatible.
-- **MATLAB** con la Toolbox de identificación de sistemas y control PID.
-- **Arduino IDE** para compilar y subir el código al microcontrolador.
-- **Osciloscopio** o **Serial Plotter** del Arduino IDE para visualizar las señales.
+#### 1. **Arduino Codes**
+Located in the `Arduino` folder:
+- `PRBS_Generator.ino`: Generates a **Pseudo Random Binary Sequence (PRBS)** to collect system data.
+- `PID_Controller.ino`: Implements the discretized PID controller with tuned gains for real-time motor control.
 
-## Instrucciones de Uso
+#### 2. **MATLAB Files**
+Located in the `MATLAB` folder:
+- `data_processing.m`: Processes data collected by Arduino and saves it as a CSV file.
+- `system_identification.m`: Identifies the system's **transfer function** using MATLAB's System Identification Toolbox.
+- `pid_tuner.m`: Tunes the PID controller using MATLAB's **PID Tuner**.
 
-1. Clona este repositorio en tu máquina local:
+### Project Description
+
+#### 1. **PID Implementation**
+This project extends previous work on the analog PID by implementing a digital PID controller for enhanced precision and flexibility. Feedback from the magnetic encoder is used to compute the error, and the controller adjusts the motor position accordingly.
+
+#### 2. **Plant Identification**
+To accurately model the system, a PRBS signal was used to excite the plant. The system's response was recorded, processed in MATLAB, and identified as a second-order transfer function with 99.35% reliability.
+
+#### 3. **PID Tuning**
+Using the identified transfer function, MATLAB's PID Tuner was employed to calculate the optimal gains ($K_p$, $K_i$, and $K_d$), which were implemented in the Arduino code.
+
+### Requirements
+- **Arduino UNO** or compatible microcontroller.
+- **MATLAB** with System Identification and PID Control Toolboxes.
+- **Arduino IDE** for compiling and uploading the code.
+- **Oscilloscope** or **Serial Plotter** to monitor signals.
+
+### Usage Instructions
+1. Clone this repository:
    ```bash
-   git clone https://github.com/HumbertoBM2/Equipo-1_ProyectoFinal_MR2002B.402.git
+   git clone https://github.com/HumbertoBM2/AnalogAndDigitalPID.git
