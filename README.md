@@ -2,15 +2,16 @@
 
 # Analog and Digital PID Controllers for DC Motor Control
 
+##### This repository contains the implementation of **Analog** and **Digital** PID controllers designed for controlling the position of a DC motor as part of a **Control Systems** class. The analog implementation uses operational amplifiers, potentiometers, resistors, and capacitors, while the digital implementation utilizes an **Arduino UNO** with feedback from a magnetic encoder.
 
 ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
-![MATLAB](https://img.shields.io/badge/MATLAB-red?style=for-the-badge&logo=mathworks
-)
+![MATLAB](https://img.shields.io/badge/MATLAB-red?style=for-the-badge&logo=mathworks)
+
 </div>
 
 
 
-This repository contains the implementation of **Analog** and **Digital** PID controllers designed for controlling the position of a DC motor as part of a **Control Systems** class. The analog implementation uses operational amplifiers, potentiometers, resistors, and capacitors, while the digital implementation utilizes an **Arduino UNO** with feedback from a magnetic encoder.
+
 
 ## Table of Contents
 1. [Analog PID Controller](#analog-pid-controller)
@@ -60,6 +61,11 @@ Feedback from the magnetic encoder provides the position signal, which is compar
 ### Tuning Process
 The controller gains (proportional, integral, and derivative) were tuned manually using the potentiometers while observing the response on an oscilloscope. Adjustments were made to achieve the desired performance criteria, such as settling time and overshoot.
 
+
+### Analog PID Gallery
+
+![circuitdesign](AGallery/circuitdesign.png)
+![circuit](AGallery/circuit.png)
 ---
 
 ## Digital PID Controller
