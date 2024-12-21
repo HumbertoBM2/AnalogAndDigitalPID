@@ -66,6 +66,12 @@ The controller gains (proportional, integral, and derivative) were tuned manuall
 
 ![circuitdesign](AGallery/circuitdesign.png)
 ![circuit](AGallery/circuit.png)
+![3dp](AGallery/3dp.png)
+![circuit](AGallery/circuit.png)
+![motorencoder](AGallery/motor-encoder.png)
+![sinto](AGallery/sinto.png)
+
+
 ---
 
 ## Digital PID Controller
@@ -104,3 +110,20 @@ Using the identified transfer function, MATLAB's PID Tuner was employed to calcu
 1. Clone this repository:
    ```bash
    git clone https://github.com/HumbertoBM2/AnalogAndDigitalPID.git
+
+
+
+
+### Digital PID Gallery
+
+![ss1](DGallery/ss1.jpg)
+![ss2](DGallery/ss2.jpg)
+![ss3](DGallery/ss3.png)
+![datoslimpios](DGallery/datoslimpios.png)
+![systemident](DGallery/systemident.png)
+![pitunerbueno](DGallery/pitunerbueno.png)
+![tf5graf](DGallery/tf5graf.png)
+![setupsimulink](DGallery/setupsimulink.png)
+![pidsimulink](DGallery/pidsimulink.png)
+![graficafsimulink](DGallery/graficafsimulink.png)
+![ss11](DGallery/ss11.jpg)
